@@ -1,12 +1,13 @@
 [project]
 name = "credit-fraud-ml-system"
 version = "0.1.0"
-description = ""
+description = "End-to-end credit card fraud detection system with cost-based decisioning"
 authors = [
-    {name = "Andreas Schubert", email = "andy.schubert@outlook.com"}
+    { name = "Andreas Schubert", email = "andy.schubert@outlook.com" }
 ]
 readme = "README.md"
 requires-python = ">=3.11,<3.12"
+
 dependencies = [
     "numpy (>=1.24,<2.4)",
     "pandas (>=2.3.3,<3.0.0)",
@@ -16,24 +17,33 @@ dependencies = [
     "uvicorn (>=0.40.0,<0.41.0)",
     "pydantic (>=2.12.5,<3.0.0)",
     "shap (>=0.50.0,<0.51.0)",
-    "matplotlib (>=3.10.8,<4.0.0)",
-    "seaborn (>=0.13.2,<0.14.0)",
-    "jupyter (>=1.1.1,<2.0.0)",
-    "ipykernel (>=7.1.0,<8.0.0)",
     "pyarrow (>=22.0.0,<23.0.0)",
     "fastparquet (>=2025.12.0,<2026.0.0)"
 ]
 
-[build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
-
 [dependency-groups]
 dev = [
-    "ipykernel (>=7.1.0,<8.0.0)",
-    "notebook (>=7.5.1,<8.0.0)",
-    "jupyterlab (>=4.5.1,<5.0.0)"
+    "kaggle (>=1.8.3,<2.0.0)",
+    "ruff (>=0.14.10,<0.15.0)",
+    "pytest (>=9.0.2,<10.0.0)",
+    "mypy (>=1.19.1,<2.0.0)",
+    "pre-commit (>=4.5.1,<5.0.0)"
 ]
 
 [tool.poetry]
-package-mode = false
+name = "credit-fraud-ml-system"
+packages = [{ include = "credit_fraud", from = "src" }]
+
+[tool.poetry.scripts]
+download-data = "credit_fraud.data.download:main"
+prepare-data = "credit_fraud.data.prepare:main"
+train = "credit_fraud.models.train:main"
+serve = "credit_fraud.api.app:main"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

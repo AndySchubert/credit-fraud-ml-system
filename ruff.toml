@@ -1,0 +1,46 @@
+target-version = "py311"
+line-length = 100
+
+# What files/folders to ignore entirely
+exclude = [
+  ".git",
+  ".venv",
+  "__pycache__",
+  "data",
+  "artifacts",
+]
+
+[lint]
+# Start with a strong-but-reasonable ruleset
+select = [
+  "E",   # pycodestyle errors
+  "F",   # pyflakes
+  "I",   # isort (import sorting)
+  "B",   # flake8-bugbear
+  "UP",  # pyupgrade
+  "SIM", # flake8-simplify
+  "RUF", # Ruff-specific
+]
+
+# Turn off rules that are noisy for ML / scripts (tweak anytime)
+ignore = [
+  "E501", # line length (handled by formatter; keeps lint calmer)
+]
+
+# These are often useful once the repo grows
+# (uncomment if you want stricter style)
+# select = ["E","F","I","B","UP","SIM","RUF","ARG","PTH"]
+
+[lint.per-file-ignores]
+# Tests often use fixtures and "magic values" — relax a bit
+"tests/**/*.py" = ["S101"]
+
+# If you have CLI scripts or one-off modules that use print, allow it:
+# "src/credit_fraud/**/cli.py" = ["T201"]
+
+[format]
+# Ruff formatter settings (Black-like)
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"

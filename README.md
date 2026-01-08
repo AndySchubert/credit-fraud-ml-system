@@ -25,3 +25,16 @@ The system assigns a fraud risk score to each transaction and outputs an action:
 
 ## Status
 Initial project scaffolding.
+
+## No Notebooks by Design
+
+This project intentionally avoids Jupyter notebooks.
+
+All data exploration, feature engineering, training, and evaluation logic is
+implemented as reproducible Python modules under `src/credit_fraud/` and
+invoked via Makefile targets.
+
+This ensures:
+- deterministic runs
+- CI compatibility
+- clear separation between experimentation and production logic
